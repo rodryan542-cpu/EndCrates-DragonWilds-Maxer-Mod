@@ -1,84 +1,71 @@
 # EndCrates-DragonWilds-Maxer-Mod
 
-Chat commands for RuneScape: Dragonwilds solo worlds. Spawn items, max skills, toggle god mode, teleport, manage quest progress, and request achievement unlocks from the game's native systems.
+A RuneScape: Dragonwilds mod for your solo world. Spawn items, set skills to 99, turn on god mode, teleport, and skip quest steps through in-game chat.
 
-Stack limits of **9,999 are built in**. Existing stackable items get the higher limit automatically when assets load. Weapons and other single-instance equipment keep their original limits. Item weight is unchanged.
+The 9,999 stack limit is built in. One mod folder, one entry in the loader.
 
-## Quick start
+## Install
 
-Open in-game chat, enter a command, and press Enter:
+Close the game first and back up `%LOCALAPPDATA%\RSDragonwilds\Saved`.
 
-```text
-!help
-!items dragon scimitar
-!give Scimitar_Dragon 1
-!maxskills
-!god on
-!landmarks lava fields
-!tp lava fields
-!agilitygold
-```
-
-Use `!god off` to turn god mode off. Use `!status` to check active modes and queued operations. The [command reference](docs/COMMANDS.md) covers every command, including quest controls, mounts, recipes, buildings, health urns, and achievements.
-
-## Installation
-
-Requires the Windows PC game and [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS/releases). The command handlers were checked against Dragonwilds build CL 251392 / Unreal 5.6.1 using UE4SS `v3.0.1-1181-g83330635`. Other builds may need adjustments. UE4SS binaries and game assets are not included.
-
-1. Close the game and back up your saves. On a normal Windows installation they are under `%LOCALAPPDATA%\RSDragonwilds\Saved`, including `SaveCharacters`, `SaveGames`, and `AccountConfig`.
-2. Install a compatible UE4SS build according to its instructions. Find the game's `RSDragonwilds\Binaries\Win64\ue4ss\Mods` directory.
-3. Download this repository with **Code → Download ZIP**, then extract it.
-4. Copy `Mods/EndCrates-DragonWilds-Maxer-Mod` into your UE4SS `Mods` directory. This single folder contains both the commands and stack-limit feature.
-5. Enable the mod in UE4SS. For a `mods.txt` setup, add these entries to the existing file without removing other mods:
+1. Install [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS/releases) for Dragonwilds.
+2. Download this repo using **Code → Download ZIP** and extract it.
+3. Copy `Mods/EndCrates-DragonWilds-Maxer-Mod` into the game's `ue4ss/Mods` folder.
+4. Add this line to your existing `mods.txt`:
 
    ```text
    EndCrates-DragonWilds-Maxer-Mod : 1
    ```
 
-   If your loader also maintains `mods.json`, ensure the corresponding `mod_enabled` entry agrees with `mods.txt`.
-6. Keep `LICENSE` and `ThirdParty-LICENSE.txt` with your copy, launch the game, and enter your solo world. Type `!help`.
+   If you also use `mods.json`, enable the matching entry there.
+5. Load your solo world, open chat, and type `!help`.
 
-The final command path should be:
+You should end up with this file:
 
 ```text
 ue4ss/Mods/EndCrates-DragonWilds-Maxer-Mod/Scripts/main.lua
 ```
 
-For an earlier installation named `WorldCommands`, disable its entry before enabling this version. Also disable and remove the old standalone `Stacks9999` folder if installed: its feature is now included here. Run only the combined mod to avoid duplicate hooks.
+Upgrading from the earlier version? Disable `WorldCommands` and remove the separate `Stacks9999` mod. Both features are in this folder now.
 
-## How it behaves
+## Commands
 
-- Commands require a local player with authority over the world. Remote clients are refused.
-- Chat messages beginning with `!` are handled locally; ordinary chat follows the game's normal path.
-- Item names are searched dynamically. Ambiguous names and invalid counts are rejected.
-- Bulk commands run gradually. `!cancel` stops remaining operations, and changing player/world cancels the queue.
-- `!maxskills` preserves XP already above the level cap. `!agilitygold` preserves existing gold times.
-- Items, XP, quest progress, unlocks, and achievement requests change only when their commands are entered. The mod enables local chat when necessary.
-- Built-in stack support changes in-memory limits. It does not automatically fill inventory stacks or edit save files.
+Type these straight into chat:
 
-## Limits
+| Command | What it does |
+| --- | --- |
+| `!items dragon` | Find item names |
+| `!give Scimitar_Dragon 1` | Give yourself a Dragon Scimitar |
+| `!maxskills` | Raise all skills to their maximum |
+| `!god on` / `!god off` | Toggle god mode |
+| `!refill` | Restore health, stamina, food, water, and rest |
+| `!landmarks lava fields` | Find a teleport destination |
+| `!tp lava fields` | Teleport there |
+| `!back` | Return to your previous teleport position |
+| `!agilitygold` | Set gold medals on all six courses |
+| `!givequestitems` | Give quest items and keys |
+| `!unlockall` / `!unlockall off` | Toggle crafting and building unlocks |
+| `!achievements` | Send achievement unlock requests to the game |
+| `!cancel` | Stop a bulk command that's still running |
 
-Back up the world before changing quests. Resetting a quest record cannot reliably restore removed actors or rewind scripted world events. Numbered quest steps follow sorted objective keys rather than every quest's branching logic.
+There's more in the [full command list](docs/COMMANDS.md), including individual skill levels, quest steps, mounts, urns, and gear presets.
 
-`!achievements` submits the 50 achievement IDs to the game's achievement router. Backend acceptance depends on the active platform service; account unlocks on Jagex Launcher are unverified. Local completion of the request queue is not proof of account unlocks.
+## A few things to know
 
-The teleport list contains destinations from the current world and loaded actors. Creature searches cover loaded creatures only. Multiplayer duel challenges are unavailable in this solo release.
+The stack limit applies to items that already stack. Weapons and armour keep their normal limits, and item weight stays the same. Existing stacks aren't filled automatically.
 
-## Disable or remove
+Quest skips can leave scripted events unfinished. Back up before using the quest commands; restarting a quest won't necessarily reset what happened in the world.
 
-Close the game, disable the mod's entry in the loader, and remove its folder if desired. This disables both commands and the built-in stack-limit feature. Removing the scripts does not undo items or progress already saved by the game. Restore a backup with the game closed to roll back those changes.
+Achievement unlocks haven't been verified on Jagex Launcher. The command sends the requests, but the platform still has to accept them.
 
-## Testing
+This is for solo worlds. Multiplayer duel challenges aren't included.
 
-See [testing and compatibility](docs/TESTING.md) for coverage, live checks, and known gaps.
+To remove the mod, close the game and disable its loader entry. Items and progress you've already saved will stay; restoring a save backup rolls those changes back.
 
-```text
-python -m pip install -r requirements-dev.txt
-python -m unittest discover -s tests -p "test_*.py" -v
-```
+Tested against Dragonwilds CL 251392 / Unreal 5.6.1 with UE4SS `v3.0.1-1181-g83330635`. See [testing notes](docs/TESTING.md) for what was checked and how to run the tests.
 
-## Credits and license
+## Credits
 
-MIT licensed. UObject access patterns include adaptations from [Dragonwilds Toolkit](https://github.com/MyNameIsGlooboo/Dragonwilds-Toolkit), by Glooboo. Its MIT notice is preserved in [ThirdParty-LICENSE.txt](ThirdParty-LICENSE.txt). Achievement identifiers come from the [public Steam achievement definitions](https://steamcommunity.com/stats/1374490/achievements/).
+Some game-object access code is adapted from Glooboo's [Dragonwilds Toolkit](https://github.com/MyNameIsGlooboo/Dragonwilds-Toolkit). Achievement names come from [Steam's public list](https://steamcommunity.com/stats/1374490/achievements/).
 
-This is a community mod and is not affiliated with Jagex.
+MIT licensed. Keep [LICENSE](LICENSE) and [ThirdParty-LICENSE.txt](ThirdParty-LICENSE.txt) with redistributed copies. This is a community mod, unaffiliated with Jagex.
