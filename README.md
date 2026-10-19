@@ -26,7 +26,7 @@ You should end up with this file:
 ue4ss/Mods/EndCrates-DragonWilds-Maxer-Mod/Scripts/main.lua
 ```
 
-Upgrading from the earlier version? Disable `WorldCommands` and remove the separate `Stacks9999` mod. Both features are in this folder now.
+If you used the earlier version, disable `WorldCommands` and remove the separate `Stacks9999` mod. Both features are in this folder now.
 
 ## Commands
 
