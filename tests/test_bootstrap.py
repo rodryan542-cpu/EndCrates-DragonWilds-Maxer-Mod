@@ -12,7 +12,8 @@ function LoopAsync(_,fn) loop=fn end
 function ExecuteInGameThread(fn) scheduled[#scheduled+1]=fn;fn() end
 function FindAllOf() return {} end
 function print() end
-require=function()
+require=function(name)
+ if name == 'stack_limits' then return function() end end
  return function()
    return {run=function(line)dispatched[#dispatched+1]=line end,tick=function()end}
  end

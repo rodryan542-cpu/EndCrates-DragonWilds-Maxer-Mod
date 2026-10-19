@@ -17,7 +17,7 @@
 | `!attr <exact name> <value>` | Change that player's attribute. |
 | `!damage 2` | Set the all-combat-styles damage multiplier. |
 
-Deleted/deprecated game assets are excluded. Ambiguous names are rejected before spawning. The game decides whether an item fits in your inventory and whether it can be equipped. This does not make weapons or armour stackable; Stacks9999 continues to control stack limits.
+Deleted/deprecated game assets are excluded. Ambiguous names are rejected before spawning. The game decides whether an item fits in your inventory and whether it can be equipped. Stack limits of 9,999 are built into the mod for existing stackable items; weapons and armour keep their original limits.
 
 ## Skills and travel
 

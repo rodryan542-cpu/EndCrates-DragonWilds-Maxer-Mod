@@ -2,7 +2,7 @@
 
 Chat commands for RuneScape: Dragonwilds solo worlds. Spawn items, max skills, toggle god mode, teleport, manage quest progress, and request achievement unlocks from the game's native systems.
 
-Includes an optional **Stacks9999** companion that raises existing stackable items to a limit of 9,999. Weapons and other single-instance equipment keep their original limits. Neither mod changes item weight.
+Stack limits of **9,999 are built in**. Existing stackable items get the higher limit automatically when assets load. Weapons and other single-instance equipment keep their original limits. Item weight is unchanged.
 
 ## Quick start
 
@@ -28,15 +28,14 @@ Requires the Windows PC game and [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS/re
 1. Close the game and back up your saves. On a normal Windows installation they are under `%LOCALAPPDATA%\RSDragonwilds\Saved`, including `SaveCharacters`, `SaveGames`, and `AccountConfig`.
 2. Install a compatible UE4SS build according to its instructions. Find the game's `RSDragonwilds\Binaries\Win64\ue4ss\Mods` directory.
 3. Download this repository with **Code → Download ZIP**, then extract it.
-4. Copy `Mods/EndCrates-DragonWilds-Maxer-Mod` into your UE4SS `Mods` directory. Copy `Mods/Stacks9999` there too if you want the stack-limit companion.
+4. Copy `Mods/EndCrates-DragonWilds-Maxer-Mod` into your UE4SS `Mods` directory. This single folder contains both the commands and stack-limit feature.
 5. Enable the mod in UE4SS. For a `mods.txt` setup, add these entries to the existing file without removing other mods:
 
    ```text
    EndCrates-DragonWilds-Maxer-Mod : 1
-   Stacks9999 : 1
    ```
 
-   Omit the second entry if you did not install Stacks9999. If your loader also maintains `mods.json`, ensure the corresponding `mod_enabled` entries agree with `mods.txt`.
+   If your loader also maintains `mods.json`, ensure the corresponding `mod_enabled` entry agrees with `mods.txt`.
 6. Keep `LICENSE` and `ThirdParty-LICENSE.txt` with your copy, launch the game, and enter your solo world. Type `!help`.
 
 The final command path should be:
@@ -45,7 +44,7 @@ The final command path should be:
 ue4ss/Mods/EndCrates-DragonWilds-Maxer-Mod/Scripts/main.lua
 ```
 
-For an earlier installation named `WorldCommands`, disable its entry before enabling this version. Run only one copy of the command mod to avoid duplicate hooks. An existing Stacks9999 installation can be kept.
+For an earlier installation named `WorldCommands`, disable its entry before enabling this version. Also disable and remove the old standalone `Stacks9999` folder if installed: its feature is now included here. Run only the combined mod to avoid duplicate hooks.
 
 ## How it behaves
 
@@ -55,7 +54,7 @@ For an earlier installation named `WorldCommands`, disable its entry before enab
 - Bulk commands run gradually. `!cancel` stops remaining operations, and changing player/world cancels the queue.
 - `!maxskills` preserves XP already above the level cap. `!agilitygold` preserves existing gold times.
 - Items, XP, quest progress, unlocks, and achievement requests change only when their commands are entered. The mod enables local chat when necessary.
-- Stacks9999 changes in-memory stack limits. It does not automatically fill inventory stacks or edit save files.
+- Built-in stack support changes in-memory limits. It does not automatically fill inventory stacks or edit save files.
 
 ## Limits
 
@@ -67,7 +66,7 @@ The teleport list contains destinations from the current world and loaded actors
 
 ## Disable or remove
 
-Close the game, disable the mod's entry in the loader, and remove its folder if desired. Disable Stacks9999 separately if installed. Removing the scripts does not undo items or progress already saved by the game. Restore a backup with the game closed to roll back those changes.
+Close the game, disable the mod's entry in the loader, and remove its folder if desired. This disables both commands and the built-in stack-limit feature. Removing the scripts does not undo items or progress already saved by the game. Restore a backup with the game closed to roll back those changes.
 
 ## Testing
 

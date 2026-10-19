@@ -6,7 +6,7 @@ The release uses UE4SS's module search path and contains no machine-specific pat
 
 ## Automated checks
 
-The Lua 5.4 tests run through Lupa. They cover parsing, quoting, numeric bounds, ambiguous item rejection, local authority requirements, item counts, native call selection, bulk cancellation, XP updates, excess XP preservation, gold medal data, explicit achievement requests, chat interception, and callback scheduling.
+The Lua 5.4 tests run through Lupa. They cover parsing, quoting, numeric bounds, ambiguous item rejection, local authority requirements, item counts, native call selection, bulk cancellation, XP updates, excess XP preservation, gold medal data, explicit achievement requests, chat interception, callback scheduling, and the built-in stack feature.
 
 ```text
 python -m pip install -r requirements-dev.txt
@@ -26,9 +26,9 @@ The command implementation was exercised in an owned solo world:
 - `!agilitygold` checked six existing gold results and preserved their times.
 - God mode toggled on and off without command errors.
 - The delayed-teleport function accepted the current position; a later query confirmed the same position.
-- Stacks9999 inspected 1,545 item assets and reported zero errors.
+- The stack-limit implementation inspected 1,545 item assets and reported zero errors before being incorporated into the main mod.
 
-The distributed entry point was checked with the automated suite after its portable-module changes. It has not been independently tested on every launcher, loader version, or game update.
+The distributed entry point was checked with the automated suite after its portable-module changes and stack integration. Stack tests check initial loading, late asset notifications, world restarts, repeated notifications, higher existing limits, equipment exclusions, and per-asset failures. The combined package has not been independently tested on every launcher, loader version, or game update.
 
 ## Coverage gaps
 

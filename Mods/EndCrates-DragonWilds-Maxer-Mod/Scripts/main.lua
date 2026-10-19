@@ -14,6 +14,7 @@ local function run(line,context)
     if not ok then reply("Command stopped: "..tostring(why)) end
 end
 adapter = require("commands")(state, reply)
+require("stack_limits")(log)
 local function update()
     if adapter.tick then adapter.tick() end
 end
@@ -55,4 +56,4 @@ LoopAsync(500,function()
         if not ok then log("Update stopped: "..tostring(why)) end
     end)
 end)
-log("Local chat bootstrap loaded. No gameplay commands run automatically.")
+log("Local chat commands loaded. Stack limit=9999.")
